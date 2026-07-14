@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "attempts": 3,
+  "wall_clock_ms": 29,
+  "last_error": null,
+  "total_tokens": 1500,
+  "escalations": 1,
+  "escalation_success": true,
+  "trigger_types_fired": [
+    "repeated_error"
+  ],
+  "loopguard_loc": 4,
+  "task_id": "SWE-1",
+  "mode": "guarded",
+  "repo": "swe-agent",
+  "description": "Fix a function with a clear bug"
+}

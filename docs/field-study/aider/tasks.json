@@ -1,0 +1,47 @@
+[
+  {
+    "id": "AI-1",
+    "description": "Generate code that passes a given test",
+    "expected_trigger": "test_failure",
+    "timeout": 180,
+    "loopguard_loc": 4,
+    "script_baseline": "import subprocess, sys; r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_generated_code'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)",
+    "script_guarded": "import subprocess, sys; from ai_loopguard import Guard; guard = Guard(escalation_model=None, triggers={'test_failure': {'max_retries': 3}}); r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_generated_code'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)"
+  },
+  {
+    "id": "AI-2",
+    "description": "Fix syntax error introduced by the agent",
+    "expected_trigger": "repeated_error",
+    "timeout": 180,
+    "loopguard_loc": 4,
+    "script_baseline": "import subprocess, sys; r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_syntax'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)",
+    "script_guarded": "import subprocess, sys; from ai_loopguard import Guard; guard = Guard(escalation_model=None, triggers={'repeated_error': {'max_retries': 3}}); r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_syntax'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)"
+  },
+  {
+    "id": "AI-3",
+    "description": "Extract structured data from markdown",
+    "expected_trigger": "schema_invalid",
+    "timeout": 180,
+    "loopguard_loc": 4,
+    "script_baseline": "import subprocess, sys; r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_json'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)",
+    "script_guarded": "import subprocess, sys; from ai_loopguard import Guard; guard = Guard(escalation_model=None, triggers={'schema_invalid': {'max_retries': 3}}); r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_json'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)"
+  },
+  {
+    "id": "AI-4",
+    "description": "Multi-file edit with cascading failures",
+    "expected_trigger": "test_failure oscillation",
+    "timeout": 180,
+    "loopguard_loc": 4,
+    "script_baseline": "import subprocess, sys; r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_cascade'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)",
+    "script_guarded": "import subprocess, sys; from ai_loopguard import Guard; guard = Guard(escalation_model=None, triggers={'test_failure': {'max_retries': 3}}); r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_cascade'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)"
+  },
+  {
+    "id": "AI-5",
+    "description": "Agent falls back to wrong approach repeatedly",
+    "expected_trigger": "repeated_error",
+    "timeout": 180,
+    "loopguard_loc": 4,
+    "script_baseline": "import subprocess, sys; r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_repeated'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)",
+    "script_guarded": "import subprocess, sys; from ai_loopguard import Guard; guard = Guard(escalation_model=None, triggers={'repeated_error': {'max_retries': 3}}); r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_repeated'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)"
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "success": false,
+  "attempts": 10,
+  "wall_clock_ms": 60,
+  "last_error": "syntax error: unexpected indent",
+  "total_tokens": 5000,
+  "task_id": "LG-3",
+  "mode": "baseline",
+  "repo": "langgraph",
+  "description": "Multi-step reasoning with failing sub-step"
+}

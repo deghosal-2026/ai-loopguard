@@ -1,0 +1,47 @@
+[
+  {
+    "id": "LG-1",
+    "description": "Tool returns error, agent retries same tool",
+    "expected_trigger": "repeated_error",
+    "timeout": 180,
+    "loopguard_loc": 4,
+    "script_baseline": "import subprocess, sys; r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_tool_error'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)",
+    "script_guarded": "import subprocess, sys; from ai_loopguard import Guard; from ai_loopguard.integrations.langgraph import LangGraphHandler; guard = Guard(escalation_model=None, triggers={'repeated_error': {'max_retries': 3}}); handler = LangGraphHandler(guard); r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_tool_error'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)"
+  },
+  {
+    "id": "LG-2",
+    "description": "Tool returns bad schema, agent retries",
+    "expected_trigger": "schema_invalid",
+    "timeout": 180,
+    "loopguard_loc": 4,
+    "script_baseline": "import subprocess, sys; r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_bad_schema'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)",
+    "script_guarded": "import subprocess, sys; from ai_loopguard import Guard; from ai_loopguard.integrations.langgraph import LangGraphHandler; guard = Guard(escalation_model=None, triggers={'schema_invalid': {'max_retries': 3}}); handler = LangGraphHandler(guard); r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_bad_schema'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)"
+  },
+  {
+    "id": "LG-3",
+    "description": "Multi-step reasoning with failing sub-step",
+    "expected_trigger": "custom (timeout)",
+    "timeout": 180,
+    "loopguard_loc": 4,
+    "script_baseline": "import subprocess, sys; r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_timeout'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)",
+    "script_guarded": "import subprocess, sys; from ai_loopguard import Guard; from ai_loopguard.integrations.langgraph import LangGraphHandler; guard = Guard(escalation_model=None); handler = LangGraphHandler(guard); r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_timeout'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)"
+  },
+  {
+    "id": "LG-4",
+    "description": "Agent keeps calling the same failed tool",
+    "expected_trigger": "repeated_error → escalation",
+    "timeout": 180,
+    "loopguard_loc": 4,
+    "script_baseline": "import subprocess, sys; r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_tool_loop'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)",
+    "script_guarded": "import subprocess, sys; from ai_loopguard import Guard; from ai_loopguard.integrations.langgraph import LangGraphHandler; guard = Guard(escalation_model=None, triggers={'repeated_error': {'max_retries': 3}}); handler = LangGraphHandler(guard); r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_tool_loop'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)"
+  },
+  {
+    "id": "LG-5",
+    "description": "Complex task requiring escalation",
+    "expected_trigger": "test_failure",
+    "timeout": 180,
+    "loopguard_loc": 4,
+    "script_baseline": "import subprocess, sys; r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_complex'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)",
+    "script_guarded": "import subprocess, sys; from ai_loopguard import Guard; from ai_loopguard.integrations.langgraph import LangGraphHandler; guard = Guard(escalation_model=None, triggers={'test_failure': {'max_retries': 3}}); handler = LangGraphHandler(guard); r = subprocess.run([sys.executable, '-m', 'pytest', '-x', '-k', 'test_complex'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)"
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "SWE-1",
+    "description": "Fix a function with a clear bug",
+    "expected_trigger": "test_failure",
+    "timeout": 180,
+    "loopguard_loc": 4,
+    "script_baseline": "import subprocess, sys; r = subprocess.run([sys.executable, '-m', 'pytest', 'tests/test_demo.py', '-x', '-k', 'test_add'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)",
+    "script_guarded": "import subprocess, sys; from ai_loopguard import Guard; guard = Guard(escalation_model=None, triggers={'test_failure': {'max_retries': 3}}); r = subprocess.run([sys.executable, '-m', 'pytest', 'tests/test_demo.py', '-x', '-k', 'test_add'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)"
+  },
+  {
+    "id": "SWE-2",
+    "description": "Fix a function where first guess is wrong",
+    "expected_trigger": "test_failure + repeated_error",
+    "timeout": 180,
+    "loopguard_loc": 4,
+    "script_baseline": "import subprocess, sys; r = subprocess.run([sys.executable, '-m', 'pytest', 'tests/test_demo.py', '-x', '-k', 'test_subtract'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)",
+    "script_guarded": "import subprocess, sys; from ai_loopguard import Guard; guard = Guard(escalation_model=None, triggers={'test_failure': {'max_retries': 3}, 'repeated_error': {'max_retries': 3}}); r = subprocess.run([sys.executable, '-m', 'pytest', 'tests/test_demo.py', '-x', '-k', 'test_subtract'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)"
+  },
+  {
+    "id": "SWE-3",
+    "description": "Add a missing import",
+    "expected_trigger": "repeated_error",
+    "timeout": 180,
+    "loopguard_loc": 4,
+    "script_baseline": "import subprocess, sys; r = subprocess.run([sys.executable, '-m', 'pytest', 'tests/test_demo.py', '-x', '-k', 'test_import'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)",
+    "script_guarded": "import subprocess, sys; from ai_loopguard import Guard; guard = Guard(escalation_model=None, triggers={'repeated_error': {'max_retries': 3}}); r = subprocess.run([sys.executable, '-m', 'pytest', 'tests/test_demo.py', '-x', '-k', 'test_import'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)"
+  },
+  {
+    "id": "SWE-4",
+    "description": "Refactor with schema constraint",
+    "expected_trigger": "schema_invalid",
+    "timeout": 180,
+    "loopguard_loc": 4,
+    "script_baseline": "import subprocess, sys; r = subprocess.run([sys.executable, '-m', 'pytest', 'tests/test_demo.py', '-x', '-k', 'test_schema'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)",
+    "script_guarded": "import subprocess, sys; from ai_loopguard import Guard; guard = Guard(escalation_model=None, triggers={'schema_invalid': {'max_retries': 3}}); r = subprocess.run([sys.executable, '-m', 'pytest', 'tests/test_demo.py', '-x', '-k', 'test_schema'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)"
+  },
+  {
+    "id": "SWE-5",
+    "description": "Fix flaky test interaction — oscillation",
+    "expected_trigger": "test_failure oscillation",
+    "timeout": 180,
+    "loopguard_loc": 4,
+    "script_baseline": "import subprocess, sys; r = subprocess.run([sys.executable, '-m', 'pytest', 'tests/test_demo.py', '-x', '-k', 'test_flaky'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)",
+    "script_guarded": "import subprocess, sys; from ai_loopguard import Guard; guard = Guard(escalation_model=None, triggers={'test_failure': {'max_retries': 3}}); r = subprocess.run([sys.executable, '-m', 'pytest', 'tests/test_demo.py', '-x', '-k', 'test_flaky'], capture_output=True, text=True, timeout=30); print(r.stdout); print(r.stderr, file=sys.stderr); exit(r.returncode)"
+  }
+]

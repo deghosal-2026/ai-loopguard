@@ -1,0 +1,11 @@
+{
+  "success": false,
+  "attempts": 10,
+  "wall_clock_ms": 62,
+  "last_error": "syntax error: unexpected indent",
+  "total_tokens": 5000,
+  "task_id": "SWE-5",
+  "mode": "baseline",
+  "repo": "swe-agent",
+  "description": "Fix flaky test interaction \u2014 oscillation"
+}

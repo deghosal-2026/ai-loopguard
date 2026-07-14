@@ -1,0 +1,11 @@
+{
+  "success": false,
+  "attempts": 10,
+  "wall_clock_ms": 62,
+  "last_error": "syntax error: unexpected indent",
+  "total_tokens": 5000,
+  "task_id": "LG-1",
+  "mode": "baseline",
+  "repo": "langgraph",
+  "description": "Tool returns error, agent retries same tool"
+}

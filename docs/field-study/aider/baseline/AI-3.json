@@ -1,0 +1,11 @@
+{
+  "success": false,
+  "attempts": 10,
+  "wall_clock_ms": 62,
+  "last_error": "syntax error: unexpected indent",
+  "total_tokens": 5000,
+  "task_id": "AI-3",
+  "mode": "baseline",
+  "repo": "aider",
+  "description": "Extract structured data from markdown"
+}

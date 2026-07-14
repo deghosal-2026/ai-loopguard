@@ -1,0 +1,11 @@
+{
+  "success": false,
+  "attempts": 10,
+  "wall_clock_ms": 61,
+  "last_error": "syntax error: unexpected indent",
+  "total_tokens": 5000,
+  "task_id": "LG-2",
+  "mode": "baseline",
+  "repo": "langgraph",
+  "description": "Tool returns bad schema, agent retries"
+}
