@@ -12,9 +12,29 @@ Registering fixtures here means they are auto-discovered by pytest and
 available to any test via function arguments (dependency injection).
 """
 
+from typing import Any
+
 import pytest
 
 from ai_loopguard.config import GuardConfig, TriggerConfig
+
+
+def pytest_addoption(parser: pytest.Parser) -> None:
+    """Register --benchmark-env CLI option (used by perf tests)."""
+    parser.addoption(
+        "--benchmark-env",
+        action="store",
+        default="local",
+        choices=["local", "ci"],
+        help="Benchmark environment: local (macOS) or ci (GitHub Actions)",
+    )
+
+
+@pytest.fixture
+def benchmark_env(request: Any) -> str:
+    """Return the benchmark environment string (local or ci)."""
+    value: object = request.config.getoption("--benchmark-env")
+    return str(value)
 
 # ── GuardConfig fixtures ──────────────────────────────────────────────
 

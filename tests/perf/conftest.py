@@ -42,25 +42,6 @@ class _MockModel:
         return _MockResponse(self._response)
 
 
-def pytest_addoption(parser: pytest.Parser) -> None:
-    """Register --benchmark-env CLI option."""
-    parser.addoption(
-        "--benchmark-env",
-        action="store",
-        default="local",
-        choices=["local", "ci"],
-        help="Benchmark environment: local (macOS) or ci (GitHub Actions)",
-    )
-
-
-@pytest.fixture
-def benchmark_env(request: pytest.FixtureRequest) -> str:
-    """Return the benchmark environment string (local or ci)."""
-    # Sourced from --benchmark-env so the same test can record both local and CI runs.
-    value: object = request.config.getoption("--benchmark-env")
-    return str(value)
-
-
 @pytest.fixture
 def git_sha() -> str:
     """Return the current git short SHA, or 'unknown' if not in a repo."""
