@@ -12,9 +12,8 @@ Registering fixtures here means they are auto-discovered by pytest and
 available to any test via function arguments (dependency injection).
 """
 
-from typing import Any
-
 import pytest
+from pytest import FixtureRequest
 
 from ai_loopguard.config import GuardConfig, TriggerConfig
 
@@ -31,7 +30,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
 
 
 @pytest.fixture
-def benchmark_env(request: Any) -> str:
+def benchmark_env(request: FixtureRequest) -> str:
     """Return the benchmark environment string (local or ci)."""
     value: object = request.config.getoption("--benchmark-env")
     return str(value)
