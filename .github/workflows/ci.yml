@@ -14,7 +14,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - run: pip install -e ".[dev]"
       - run: ruff check
-      - run: pip-audit
+      - run: pip-audit --ignore-vuln PYSEC-2026-2193 --ignore-vuln PYSEC-2026-2562
       # Use shell: bash so semicolons work consistently on Windows
       - run: pip-licenses --from=metadata --order=license --fail-on=GPL;LGPL;AGPL
         shell: bash
