@@ -34,3 +34,24 @@ jobs:
       - run: python -c "import ai_loopguard; print('core import OK')"
       - run: python -c "import langgraph" && exit 1 || echo "langgraph not in core — OK"
       - run: python -c "import crewai" && exit 1 || echo "crewai not in core — OK"
+
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pip-audit bandit
+      - run: pip-audit
+      - run: bandit -c pyproject.toml -r ai_loopguard/ -ll
+
+  secrets-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: trufflesecurity/trufflehog@v3
+        with:
+          extra_args: --results=verified --no-fail

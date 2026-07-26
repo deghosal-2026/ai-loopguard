@@ -1,52 +1,49 @@
 # Security Policy
 
+## Reporting a Vulnerability
+
+If you discover a security vulnerability, please report it privately. Do not open a public issue.
+
+**Email:** security@ghosal.dev
+
+Please include:
+- A detailed description of the vulnerability
+- Steps to reproduce
+- The affected version(s)
+- Any potential impact or exploit scenario
+
+## Response Timeline
+
+- **Acknowledgment:** Within 48 hours
+- **Initial assessment:** Within 5 business days
+- **Fix timeline:** Depends on severity — critical issues prioritized for immediate patch release
+
 ## Supported Versions
 
 | Version | Supported |
-|---------|-----------|
-| 0.1.x   | ✅        |
+|---|---|
+| Latest (main) | ✅ |
+| Older versions | ❌ |
 
-## Reporting a Vulnerability
+## Security Design Principles
 
-If you discover a security vulnerability in ai-loopguard, please report it
-responsibly:
+ai-loopguard is built with the following security principles:
 
-1. **Do NOT open a public GitHub issue.**
-2. Email **deghosal@example.com** (replace with actual contact) with:
-   - Description of the vulnerability
-   - Steps to reproduce
-   - Potential impact
-   - Suggested fix (if any)
-3. You will receive a response within 48 hours.
-4. Once the vulnerability is confirmed and fixed, we will publish a security
-   advisory and credit you (unless you prefer to remain anonymous).
+- **All external calls are authenticated.** API tokens are scoped to read-only where possible.
+- **No secrets persist.** Tokens are passed as environment variables or CLI args — never written to disk or logs.
 
-## Security considerations
+## Common Security Knowledge
 
-ai-loopguard processes agent loop state, which may include:
+All contributors are expected to understand and avoid these common security pitfalls:
 
-- **Agent outputs** — could contain sensitive data from the user's codebase
-- **Error messages** — could contain stack traces, file paths, or secrets
-- **Escalation prompts** — packaged context sent to the escalation model
+- **Injection attacks:** Never construct SQL, shell commands, or LDAP queries via string concatenation. Use parameterized queries and safe APIs.
+- **Authentication bypass:** Never trust client-side identity assertions. All identity verification happens server-side.
+- **Secrets management:** API keys, tokens, and credentials are loaded from environment variables. Never hard-code secrets.
+- **Input validation:** All user-supplied input should be validated before reaching business logic. Expect and reject malformed input.
 
-### Built-in protections
+## What to Expect
 
-- **Redactor** — strips known secret patterns (OpenAI keys, AWS keys, GitHub
-  tokens) from escalation prompts before they are sent to the escalation model
-- **Sanitizer** — wraps agent output in delimiters to reduce prompt injection
-  risk
-- **No telemetry** — ai-loopguard does not phone home or collect usage data
-
-### User responsibilities
-
-- Configure `redact_patterns` with your organization's secret patterns
-- Configure `redact_fields` to strip sensitive field names from context
-- Review escalation prompts before sending to third-party model providers
-- Use `sanitize_context=True` (default) to reduce prompt injection risk
-
-## Disclosure timeline
-
-- **Day 0**: Vulnerability reported
-- **Day 1**: Acknowledgment sent to reporter
-- **Day 7**: Fix developed and tested
-- **Day 14**: Security advisory published, patched release issued
+If a vulnerability is confirmed:
+1. A fix will be developed and tested
+2. A security advisory will be published with the fix
+3. Credit will be given to the reporter (unless anonymity is requested)

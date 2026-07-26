@@ -93,3 +93,7 @@ markers = [
     "slow: slow tests (excluded from default run)",
 ]
 asyncio_mode = "auto"
+
+[tool.bandit]
+exclude_dirs = ["tests", ".venv"]
+skips = ["B101", "B311"]
