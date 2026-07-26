@@ -128,3 +128,9 @@ Cost trackers tell you what happened after the fact. ai-loopguard stops the blee
 ## License
 
 MIT
+
+## Resources
+
+- **Issues:** [github.com/deghosal-2026/ai-loopguard/issues](https://github.com/deghosal-2026/ai-loopguard/issues) — bug reports and feature requests
+- **Security:** [SECURITY.md](SECURITY.md) — report vulnerabilities privately
+- **Contributing:** [CONTRIBUTING.md](CONTRIBUTING.md) — coding standards and PR process
