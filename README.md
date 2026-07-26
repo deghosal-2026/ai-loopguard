@@ -1,5 +1,7 @@
 # ai-loopguard
 
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/13799/badge)](https://www.bestpractices.dev/projects/13799)
+
 > Circuit breaker and escalation for LLM agent loops. Drop-in. Framework-agnostic.
 
 ## What it does
