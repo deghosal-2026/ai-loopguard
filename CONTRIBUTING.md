@@ -109,9 +109,13 @@ test: cover interrupt mode with negative consent path
 
 ## Code standards
 
-| Standard | Tool | Requirement |
-| --- | --- | --- |
-| Linting | `ruff check` | Zero errors. Line length **100**. Rules: `E, F, I, N, UP, D, ANN`. |
+All contributions must follow these coding standards:
+
+| Standard | Tool | Requirement | Reference |
+| --- | --- | --- | --- |
+| Linting | `ruff check` | Zero errors. Line length **100**. Rules: `E, F, I, N, UP, D, ANN`. | [PEP 8](https://peps.python.org/pep-0008/), [`pyproject.toml`](pyproject.toml) |
+| Type checking | `mypy --strict` | Zero errors on source code. | [mypy docs](https://mypy-lang.org/) |
+| Commit messages | Conventional Commits | `feat:`, `fix:`, `docs:`, `test:` | [conventionalcommits.org](https://www.conventionalcommits.org/) |
 | Types | `mypy --strict ai_loopguard/ tests/` | Zero errors. `python_version = "3.10"`. |
 | Coverage | `pytest --cov=ai_loopguard` | **≥ 90%** enforced via `--cov-fail-under=90`. |
 | Warnings | `pytest` | No warnings allowed — fix the root cause, don't suppress. |
