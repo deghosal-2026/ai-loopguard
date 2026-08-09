@@ -2,6 +2,7 @@ name: CI
 on: [push, pull_request]
 jobs:
   test:
+    timeout-minutes: 20
     strategy:
       matrix:
         python-version: ["3.10", "3.11", "3.12"]
